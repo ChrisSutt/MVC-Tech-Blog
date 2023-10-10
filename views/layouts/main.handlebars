@@ -1,22 +1,25 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore Tech</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
-  rel="stylesheet" 
-  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
-  crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/style.css" />
 
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Blog</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+		
+  </head>
+
   <body>
     <div class="flex-column justify-space-around">
 
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid navBack">
-          <a class="navbar-brand navTitle" href="/">Tech Explorer</a>
+          <a class="navbar-brand navTitle" href="/">The Tech Blog</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -39,9 +42,9 @@
                   <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
 
-            
+                {{! need to add css }}
                 <li class="nav-item">
-                  <button class="nav-link" id="logout">Logout</button>
+                  <button class="no-button" id="logout">Logout</button>
                 </li>
 
               {{else}}
@@ -50,7 +53,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="/signup">Sign Up</a>
+                  <a class="nav-link" href="/signUp">Sign Up</a>
                 </li>
               {{/if}}
 
@@ -66,10 +69,15 @@
       </footer>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" 
-crossorigin="anonymous">
-</script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
   </body>
-  
+
 </html>

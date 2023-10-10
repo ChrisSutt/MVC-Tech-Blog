@@ -1,39 +1,39 @@
 <div class="text">
-	<div class="container blog-container">
-		<div class="row header-row">
+	<div class="container blogBoxCont">
+		<div class="row headerRow">
 			<div class="col-8">
-				<h2 class="blog-title text-uppercase">{{title}}</h2>
+				<h2 class="blogTitle text-uppercase">{{title}}</h2>
 			</div>
 			<div class="col-4">
-				<p class="blog-created text-right">Written by {{user.username}} on {{formatted_date date_created}}</p>
+				<p class="blogCreate text-right">Created by {{user.username}} on {{format_date date_created}}</p>
 			</div>
 		</div>
-		<p class="text-center blog-description">{{description}}</p>
-	</div>	
+		<p class="text-center blogDescTwo">{{description}}</p>
+		</div>	
 </div>
 
-{{#if user.logged_in}}
+		{{#if logged_in}}
 
-<form class="comment-form form-container d-flex flex-wrap justify-content-center" data-blogid={{id}}>
-	<div class="text-area-container p-2">
-		<textarea id='comment-description' name="comment-body"
-		placeholder="Share your thoughts..."
-		cols="30"
-		rows="2"></textarea>
-	</div>
-	<div class="btn-comment p-2">
-		<button class="button btn btn-success" type="submit">Submit Comment</button>
-	</div>
-</form>
+		<form class="new-comment-form formCont d-flex flex-wrap justify-content-center" data-blogid={{id}}>
+			<div class="textAreaCont p-2">
+				<textarea id='comment_description' name="comment-body"
+				placeholder="Enter a comment here..."
+				cols="30"
+				rows="2"></textarea>
+			</div>
+			<div class="btnComment p-2">
+				<button class="button btn btn-success" type="submit">Add Comment</button>
+			</div>
+		</form>
 
-{{/if}}
+		{{/if}}
 
-<h2 class="text-center">Engage in Conversation</h2>
-{{#each comments as |comment|}}
-<div class="comment-container">
-	<p class="text-center comment-text">{{comment.comment_description}}</p>
-	<p class="text-center comment-owner"><span>❤</span>Shared by {{comment.user.username}} on {{formatted_date date_created}}<span>❤</span></p>
-</div>
-{{/each}}
+		<h2 class="text-center">Comments</h2>
+		{{#each comments as |comment|}}
+		<div class="commentCont">
+			<p class="text-center commentText">{{comment.comment_description}}</p>
+			<p class="text-center commentOwner"><span>~</span>Created by {{comment.user.username}} on {{format_date date_created}}<span>~</span></p>
+		</div>
+		{{/each}}
 
-<script src="/js/comments.js"></script>
+		<script src="/js/comments.js"></script>

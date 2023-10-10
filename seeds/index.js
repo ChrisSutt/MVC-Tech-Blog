@@ -1,7 +1,5 @@
 const sequelize = require('../config/connection')
 const { Blog, Comment, User } = require('../models')
-
-
 const seedBlog = require('./blogData.json')
 const seedComment = require('./commentData.json')
 const seedUser = require('./userData.json')
