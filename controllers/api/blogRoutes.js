@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const { Article } = require('../../models');
+const { Blog } = require('../../models');
 const secureAccess = require('../../utils/auth');
 
 router.post('/', secureAccess, async (req, res) => {
   try {
-    const freshArticle = await Article.create({
+    const freshBlog = await Blog.create({
       ...req.body,
       user_id: req.session.user_id,
     });
 
-    res.status(200).json(freshArticle);
+    res.status(200).json(freshBlog);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -17,19 +17,19 @@ router.post('/', secureAccess, async (req, res) => {
 
 router.delete('/:id', secureAccess, async (req, res) => {
   try {
-    const articleData = await Article.destroy({
+    const blogData = await Blog.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,
       },
     });
 
-    if (!articleData) {
+    if (!blogData) {
       res.status(404).json({ message: '404 Article ID not found' });
       return;
     }
 
-    res.status(200).json(articleData);
+    res.status(200).json(blogData);
   } catch (error) {
     res.status(500).json(error);
   }

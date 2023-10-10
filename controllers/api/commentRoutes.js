@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { UserRemark } = require('../../models');
+const { User } = require('../../models');
 const secureAccess = require('../../utils/auth');
 
 router.get('/', (req, res) => {
-  UserRemark.findAll({})
+    User.findAll({})
     .then(remarkData => res.json(remarkData))
     .catch(error => {
       console.log(error);
@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  UserRemark.findAll({
+    User.findAll({
     where: {
       id: req.params.id
     }
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const newRemark = await UserRemark.create({
+    const newRemark = await User.create({
       ...req.body,
       user_id: req.session.user_id,
     });
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', secureAccess, async (req, res) => {
   try {
-    const remarkData = await UserRemark.destroy({
+    const remarkData = await User.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,

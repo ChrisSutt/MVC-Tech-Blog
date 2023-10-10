@@ -1,22 +1,22 @@
 const router = require('express').Router();
-const { UserProfile, Article, Comment } = require('../models');
+const { User, Blog, Comment } = require('../models');
 const ensureAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
 	try {
-		const articleData = await Article.findAll({
+		const blogData = await Blog.findAll({
 			include: [{
-				model: UserProfile,
+				model: User,
 				attributes: ['username'],
 			}],
 		});
 
-		const articles = articleData.map((article) => article.get({
+		const blogs = blogData.map((blog) => blog.get({
 			plain: true
 		}));
 
 		res.render('homepage', {
-			articles,
+			blogs,
 			logged_in: req.session.logged_in
 		});
 	} catch (error) {
@@ -24,12 +24,12 @@ router.get('/', async (req, res) => {
 	}
 });
 
-router.get('/article/:id', async (req, res) => {
+router.get('/blog/:id', async (req, res) => {
 	try {
-		const articleData = await Article.findByPk(req.params.id, {
+		const blogData = await Blog.findByPk(req.params.id, {
 			include: [
 				{
-					model: UserProfile,
+					model: User,
 					attributes: ['username'],
 				}, {
 					model: Comment,
@@ -40,12 +40,12 @@ router.get('/article/:id', async (req, res) => {
 			],
 		});
 
-		const article = articleData.get({
+		const blog = blogData.get({
 			plain: true
 		});
 
-		res.render('article', {
-			...article,
+		res.render('blog', {
+			...blog,
 			logged_in: req.session.logged_in
 		});
 	} catch (error) {
@@ -55,12 +55,12 @@ router.get('/article/:id', async (req, res) => {
 
 router.get('/dashboard', ensureAuth, async (req, res) => {
 	try {
-		const userData = await UserProfile.findByPk(req.session.user_id, {
+		const userData = await User.findByPk(req.session.user_id, {
 			attributes: {
 				exclude: ['password']
 			},
 			include: [{
-				model: Article
+				model: Blog
 			}],
 		});
 
