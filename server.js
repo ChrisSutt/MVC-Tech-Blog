@@ -2,26 +2,38 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-const routes = require('./routes');
-const helpers = require('./utils')
-const sequelize = require('./config/connection')
+const customRoutes = require('./controllers');
+const utilityHelpers = require('./utils/helpers');
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+const databaseConnection = require('./config/connection');
+const SessionStore = require('connect-session-sequelize')(session.Store);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended : true }));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(routes);
+const webApp = express();
+const PORT = process.env.PORT || 3001;
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    
-    sequelize.sync({ force: false })
-      .then(() => {
-        console.log('Database synced successfully.');
-      })
-      .catch((err) => {
-        console.error('Error syncing the database:', err);
-      });
-  });
+const handlebarsInstance = exphbs.create({ helpers: utilityHelpers });
+
+const sessionConfig = {
+  secret: 'Ultra-confidential-secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SessionStore({
+    db: databaseConnection
+  })
+};
+
+webApp.use(session(sessionConfig));
+
+webApp.engine('handlebars', handlebarsInstance.engine);
+webApp.set('view engine', 'handlebars');
+
+webApp.use(express.json());
+webApp.use(express.urlencoded({ extended: true }));
+webApp.use(express.static(path.join(__dirname, 'public')));
+
+webApp.use(customRoutes);
+
+databaseConnection.sync({ force: false }).then(() => {
+  webApp.listen(PORT, () => console.log('Server is now listening on ${PORT}!'));
+});

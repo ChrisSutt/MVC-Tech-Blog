@@ -1,0 +1,26 @@
+{{#each posts as |post|}}
+  <div class="row">
+    <div class="container post-container">
+      <div class="row justify-content-center header-row">
+        <div class="col-8">
+          <h2>
+            <a class="post-title text-uppercase" href="/post/{{post.id}}">{{post.title}}</a>
+          </h2>
+        </div>
+        <div class="col-4">
+          <p class="post-details text-right">Authored by
+            {{post.author.username}}
+            on
+            {{formatDate post.date_created}}
+          </p>
+        </div>
+      </div>
+      <div class="post-content">
+        <p class="text-center post-content-main">
+          {{post.content}}
+        </p>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
