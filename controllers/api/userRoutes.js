@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { UserProfile } = require('../../utils/auth');
+const { User } = require('../../models/User');
 
 router.post('/', async (req, res) => {
   try {
-    const userProfileData = await UserProfile.create(req.body);
+    const userProfileData = await User.create(req.body);
 
     req.session.save(() => {
       req.session.user_id = userProfileData.id;
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const userProfileData = await UserProfile.findOne({ 
+    const userProfileData = await User.findOne({ 
 			where: { username: req.body.username } 
 		});
 

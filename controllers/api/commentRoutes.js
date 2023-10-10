@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { Comment } = require('../../models');
 const secureAccess = require('../../utils/auth');
 
 router.get('/', (req, res) => {
-    User.findAll({})
-    .then(remarkData => res.json(remarkData))
+    Comment.findAll({})
+    .then(commentData => res.json(commentData))
     .catch(error => {
       console.log(error);
       res.status(500).json(error);
@@ -12,12 +12,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    User.findAll({
+    Comment.findAll({
     where: {
       id: req.params.id
     }
   })
-    .then(remarkData => res.json(remarkData))
+    .then(commentData => res.json(commentData))
     .catch(error => {
       console.log(error);
       res.status(500).json(error);
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const newRemark = await User.create({
+    const newRemark = await Comment.create({
       ...req.body,
       user_id: req.session.user_id,
     });
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/:id', secureAccess, async (req, res) => {
   try {
-    const remarkData = await User.destroy({
+    const commentData = await Comment.destroy({
       where: {
         id: req.params.id,
         user_id: req.session.user_id,
@@ -48,7 +48,7 @@ router.delete('/:id', secureAccess, async (req, res) => {
       res.status(404).json({ message: '404 Remark ID not found' });
       return;
     }
-    res.status(200).json(remarkData);
+    res.status(200).json(commentData);
   } catch (error) {
     res.status(500).json(error);
   }
