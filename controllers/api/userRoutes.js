@@ -1,35 +1,35 @@
 const router = require('express').Router();
-const { User } = require('../../models/User');
+const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
   try {
-    const userProfileData = await User.create(req.body);
+    const userData = await User.create(req.body);
 
     req.session.save(() => {
-      req.session.user_id = userProfileData.id;
+      req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.status(200).json(userProfileData);
+      res.status(200).json(userData);
     });
-  } catch (error) {
-    res.status(400).json(error);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
 router.post('/login', async (req, res) => {
   try {
-    const userProfileData = await User.findOne({ 
+    const userData = await User.findOne({ 
 			where: { username: req.body.username } 
 		});
 
-    if (!userProfileData) {
+    if (!userData) {
       res
         .status(400)
         .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
 
-    const validPassword = await userProfileData.checkPassword(req.body.password);
+    const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
@@ -39,14 +39,14 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.user_id = userProfileData.id;
+      req.session.user_id = userData.id;
       req.session.logged_in = true;
       
-      res.json({ user: userProfileData, message: 'You are now logged in!' });
+      res.json({ user: userData, message: 'You are now logged in!' });
     });
 
-  } catch (error) {
-    res.status(400).json(error);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
