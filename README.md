@@ -1,4 +1,4 @@
-# Social Network API
+# MVC - TechBlog
 
 This is a Model-View-Controller (MVC) architecture-based tech blog application. It allows users to create accounts, publish blog posts, comment on other users' posts, and interact within a community of tech enthusiasts. The application is built using Handlebars.js for the views, Express.js for the server, and Sequelize as the Object-Relational Mapping (ORM) for MySQL databases.
 
