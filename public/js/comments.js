@@ -1,7 +1,7 @@
 const commentFormHandler = async function (event) {
 	event.preventDefault();
 
-	const blog_id = document.querySelector('.comment-form').dataset.blogid;
+	const blog_id = document.querySelector('.new-comment-form').dataset.blogid;
 
 	const comment_description = document.querySelector('#comment_description').value.trim();
 
