@@ -1,7 +1,7 @@
-const userRouter = require('express').Router();
+const router = require('express').Router();
 const { UserProfile } = require('../../utils/auth');
 
-userRouter.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const userProfileData = await UserProfile.create(req.body);
 
@@ -16,7 +16,7 @@ userRouter.post('/', async (req, res) => {
   }
 });
 
-userRouter.post('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const userProfileData = await UserProfile.findOne({ 
 			where: { username: req.body.username } 
@@ -50,7 +50,7 @@ userRouter.post('/login', async (req, res) => {
   }
 });
 
-userRouter.post('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -60,4 +60,4 @@ userRouter.post('/logout', (req, res) => {
   }
 });
 
-module.exports = userRouter;
+module.exports = router;

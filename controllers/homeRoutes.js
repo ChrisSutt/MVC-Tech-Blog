@@ -1,8 +1,8 @@
-const customRouter = require('express').Router();
+const router = require('express').Router();
 const { UserProfile, Article, Comment } = require('../models');
 const ensureAuth = require('../utils/auth');
 
-customRouter.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
 	try {
 		const articleData = await Article.findAll({
 			include: [{
@@ -24,7 +24,7 @@ customRouter.get('/', async (req, res) => {
 	}
 });
 
-customRouter.get('/article/:id', async (req, res) => {
+router.get('/article/:id', async (req, res) => {
 	try {
 		const articleData = await Article.findByPk(req.params.id, {
 			include: [
@@ -53,7 +53,7 @@ customRouter.get('/article/:id', async (req, res) => {
 	}
 });
 
-customRouter.get('/dashboard', ensureAuth, async (req, res) => {
+router.get('/dashboard', ensureAuth, async (req, res) => {
 	try {
 		const userData = await UserProfile.findByPk(req.session.user_id, {
 			attributes: {
@@ -77,7 +77,7 @@ customRouter.get('/dashboard', ensureAuth, async (req, res) => {
 	}
 });
 
-customRouter.get('/login', (req, res) => {
+router.get('/login', (req, res) => {
 	if (req.session.logged_in) {
 		res.redirect('/dashboard');
 		return;
@@ -86,7 +86,7 @@ customRouter.get('/login', (req, res) => {
 	res.render('login');
 });
 
-customRouter.get('/signUp', (req, res) => {
+router.get('/signUp', (req, res) => {
 	if (req.session.logged_in) {
 		res.redirect('/dashboard');
 		return;
@@ -94,4 +94,4 @@ customRouter.get('/signUp', (req, res) => {
 	res.render('signUp');
 });
 
-module.exports = customRouter;
+module.exports = router;

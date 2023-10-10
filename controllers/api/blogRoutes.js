@@ -1,8 +1,8 @@
-const customRouter = require('express').Router();
+const router = require('express').Router();
 const { Article } = require('../../models');
 const secureAccess = require('../../utils/auth');
 
-customRouter.post('/', secureAccess, async (req, res) => {
+router.post('/', secureAccess, async (req, res) => {
   try {
     const freshArticle = await Article.create({
       ...req.body,
@@ -15,7 +15,7 @@ customRouter.post('/', secureAccess, async (req, res) => {
   }
 });
 
-customRouter.delete('/:id', secureAccess, async (req, res) => {
+router.delete('/:id', secureAccess, async (req, res) => {
   try {
     const articleData = await Article.destroy({
       where: {
@@ -35,4 +35,4 @@ customRouter.delete('/:id', secureAccess, async (req, res) => {
   }
 });
 
-module.exports = customRouter;
+module.exports = router;

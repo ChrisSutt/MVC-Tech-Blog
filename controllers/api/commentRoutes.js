@@ -1,8 +1,8 @@
-const customRouter = require('express').Router();
+const router = require('express').Router();
 const { UserRemark } = require('../../models');
 const secureAccess = require('../../utils/auth');
 
-customRouter.get('/', (req, res) => {
+router.get('/', (req, res) => {
   UserRemark.findAll({})
     .then(remarkData => res.json(remarkData))
     .catch(error => {
@@ -11,7 +11,7 @@ customRouter.get('/', (req, res) => {
     });
 });
 
-customRouter.get('/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   UserRemark.findAll({
     where: {
       id: req.params.id
@@ -24,7 +24,7 @@ customRouter.get('/:id', (req, res) => {
     });
 });
 
-customRouter.post('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newRemark = await UserRemark.create({
       ...req.body,
@@ -36,7 +36,7 @@ customRouter.post('/', async (req, res) => {
   }
 });
 
-customRouter.delete('/:id', secureAccess, async (req, res) => {
+router.delete('/:id', secureAccess, async (req, res) => {
   try {
     const remarkData = await UserRemark.destroy({
       where: {
@@ -54,4 +54,4 @@ customRouter.delete('/:id', secureAccess, async (req, res) => {
   }
 });
 
-module.exports = customRouter;
+module.exports = router;
