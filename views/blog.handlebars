@@ -1,0 +1,37 @@
+<div class="text">
+	<div class="container blog-container">
+		<div class="row header-row">
+			<div class="col-8">
+				<h2 class="blog-title text-uppercase">{{title}}</h2>
+			</div>
+			<div class="col-4">
+				<p class="blog-created text-right">Written by {{user.username}} on {{formatted_date date_created}}</p>
+			</div>
+		</div>
+		<p class="text-center blog-description">{{description}}</p>
+	</div>	
+</div>
+
+{{#if user.logged_in}}
+
+<form class="new-comment-form form-container d-flex flex-wrap justify-content-center" data-blogid={{id}}>
+	<div class="text-area-container p-2">
+		<textarea id='comment-description' name="comment-body"
+		placeholder="Share your thoughts..."
+		cols="30"
+		rows="2"></textarea>
+	</div>
+	<div class="btn-comment p-2">
+		<button class="button btn btn-success" type="submit">Submit Comment</button>
+	</div>
+</form>
+
+{{/if}}
+
+<h2 class="text-center">Engage in Conversation</h2>
+{{#each comments as |comment|}}
+<div class="comment-container">
+	<p class="text-center comment-text">{{comment.comment_description}}</p>
+	<p class="text-center comment-owner"><span>❤</span>Shared by {{comment.user.username}} on {{formatted_date date_created}}<span>❤</span></p>
+</div>
+{{/each}}
