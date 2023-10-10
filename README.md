@@ -17,7 +17,7 @@ This project is licensed under the [![License: MIT](https://img.shields.io/badge
 ## Installation
 
 * https://github.com/ChrisSutt/MVC-Tech-Blog.git
-* cd social-network-api
+* cd MVC-Tech-Blog
 * npm install
 * create a .ENV file in the root directory
 * npm run seed
