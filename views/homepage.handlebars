@@ -1,25 +1,26 @@
-{{#each blogs as |blog|}}
+{{#each posts as |post|}}
   <div class="row">
-    <div class="container blog-container">
+    <div class="container post-container">
       <div class="row justify-content-center header-row">
         <div class="col-8">
           <h2>
-            <a class="blog-title text-uppercase" href="/blog/{{blog.id}}">{{blog.title}}</a>
+            <a class="post-title text-uppercase" href="/post/{{post.id}}">{{post.title}}</a>
           </h2>
         </div>
         <div class="col-4">
-          <p class="blog-details text-right">Created by
-            {{blog.user.username}}
+          <p class="post-details text-right">Authored by
+            {{post.author.username}}
             on
-            {{formatDate blog.date_created}}
+            {{formatDate post.date_created}}
           </p>
         </div>
       </div>
-      <div class="blog-description">
-        <p class="text-center blog-description-main">
-          {{blog.description}}
+      <div class="post-content">
+        <p class="text-center post-content-main">
+          {{post.content}}
         </p>
       </div>
     </div>
   </div>
 {{/each}}
+

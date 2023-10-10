@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3001;
 const handlebarsInstance = exphbs.create({ helpers: utilityHelpers });
 
 const sessionConfig = {
-  secret: 'Ultra confidential secret',
+  secret: 'Ultra-confidential-secret',
   cookie: {},
   resave: false,
   saveUninitialized: true,
@@ -35,5 +35,5 @@ webApp.use(express.static(path.join(__dirname, 'public')));
 webApp.use(customRoutes);
 
 databaseConnection.sync({ force: false }).then(() => {
-  webApp.listen(PORT, () => console.log('Server is now listening'));
+  webApp.listen(PORT, () => console.log('Server is now listening on ${PORT}!'));
 });

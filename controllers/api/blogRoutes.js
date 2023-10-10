@@ -1,6 +1,6 @@
 const customRouter = require('express').Router();
 const { Article } = require('../../models');
-const secureAccess = require('../../utils/security');
+const secureAccess = require('../../utils/auth');
 
 customRouter.post('/', secureAccess, async (req, res) => {
   try {

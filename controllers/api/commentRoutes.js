@@ -1,6 +1,6 @@
 const customRouter = require('express').Router();
 const { UserRemark } = require('../../models');
-const secureAccess = require('../../utils/security');
+const secureAccess = require('../../utils/auth');
 
 customRouter.get('/', (req, res) => {
   UserRemark.findAll({})
